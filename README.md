@@ -24,10 +24,10 @@ Use the initialization script to rename the package and replace all placeholders
 
 This script will:
 - Rename directories and files.
-- Replace `YOUR_PACKAGE_ID`, `YOUR_PACKAGE_NAME`, etc. in all files and folder names.
+- Replace `com.usm.AITheme`, `UsmAITheme`, etc. in all files and folder names.
 
 ### 4️⃣ Update `package.json`
-Open `Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE/package.json` and update:
+Open `Unity-Package/Packages/com.usm.aitheme/package.json` and update:
 - `description`
 - `author`
 - `keywords`
@@ -67,17 +67,17 @@ Decide what type of MCP tool you need:
   - ✔️ Works in Unity Editor (Edit Mode)
   - ✔️ Works in Unity Editor (Play Mode)
   - ✔️ Has access to Editor API
-  - ❌ Available in a game build
+  - �?Available in a game build
 - **MCP tool for Unity Runtime**
   - ✔️ Works in Unity Editor (Edit Mode)
   - ✔️ Works in Unity Editor (Play Mode)
-  - ❌ Has access to Editor API
+  - �?Has access to Editor API
   - ✔️ Available in a game build
 
 Based on your choice create script at the location
 
-- Editor: `Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE/Editor`
-- Runtime: `Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE/Runtime`
+- Editor: `Unity-Package/Packages/com.usm.aitheme/Editor`
+- Runtime: `Unity-Package/Packages/com.usm.aitheme/Runtime`
 
 > Read detailed instructions about custom tool development [here](https://github.com/IvanMurzak/Unity-MCP?tab=readme-ov-file#add-custom-mcp-tool).
 
@@ -140,7 +140,7 @@ To enable automatic testing and deployment:
 4.  **Automatic Deployment**
     The release workflow triggers automatically when you push to the `main` branch with an incremented version in `package.json`.
 
-### 3. Add files into `Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE` folder
+### 3. Add files into `Unity-Package/Packages/com.usm.aitheme` folder
 
 [Unity guidelines](https://docs.unity3d.com/Manual/cus-layout.html) about organizing files into the package root directory
 
@@ -152,22 +152,22 @@ To enable automatic testing and deployment:
   ├── LICENSE.md
   ├── Third Party Notices.md
   ├── Editor
-  │   ├── [company-name].[package-name].Editor.asmdef
-  │   └── EditorExample.cs
+  �?  ├── [company-name].[package-name].Editor.asmdef
+  �?  └── EditorExample.cs
   ├── Runtime
-  │   ├── [company-name].[package-name].asmdef
-  │   └── RuntimeExample.cs
+  �?  ├── [company-name].[package-name].asmdef
+  �?  └── RuntimeExample.cs
   ├── Tests
-  │   ├── Editor
-  │   │   ├── [company-name].[package-name].Editor.Tests.asmdef
-  │   │   └── EditorExampleTest.cs
-  │   └── Runtime
-  │        ├── [company-name].[package-name].Tests.asmdef
-  │        └── RuntimeExampleTest.cs
+  �?  ├── Editor
+  �?  �?  ├── [company-name].[package-name].Editor.Tests.asmdef
+  �?  �?  └── EditorExampleTest.cs
+  �?  └── Runtime
+  �?       ├── [company-name].[package-name].Tests.asmdef
+  �?       └── RuntimeExampleTest.cs
   ├── Samples~
-  │        ├── SampleFolder1
-  │        ├── SampleFolder2
-  │        └── ...
+  �?       ├── SampleFolder1
+  �?       ├── SampleFolder2
+  �?       └── ...
   └── Documentation~
        └── [package-name].md
 ```
@@ -175,7 +175,7 @@ To enable automatic testing and deployment:
 # Final polishing
 
 - Update the `README.md` file (this file) with information about your package.
-- Copy the updated `README.md` to `Packages/YOUR_PACKAGE_ID_LOWERCASE` as well.
+- Copy the updated `README.md` to `Packages/com.usm.aitheme` as well.
 
 > ⚠️ Everything outside of the `root` folder won't be added to your package. But still could be used for testing or showcasing your package at your repository.
 
@@ -196,7 +196,7 @@ When your package is distributed, you can install it into any Unity project.
 - Execute the command (for `OpenUPM` hosted package)
 
   ```bash
-  openupm add YOUR_PACKAGE_NAME
+  openupm add UsmAITheme
   ```
 
 # Final view in Unity Package Manager

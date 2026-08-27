@@ -1,0 +1,35 @@
+{
+    "name": "com.usm.aitheme",
+    "displayName": "UsmAITheme",
+    "author": {
+        "name": "yexin",
+        "url": "https://github.com/yexin8805"
+    },
+    "keywords": [
+        "ai",
+        "testing",
+        "automated-testing",
+        "game-testing",
+        "qa",
+        "mcp",
+        "unity-mcp",
+        "ai-game-developer"
+    ],
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "AI-powered automated game testing tools for Unity-MCP (AI Game Developer). Provides MCP tools that let AI agents play and test games: input simulation, gameplay automation, state inspection, and test reporting.",
+    "dependencies": {
+        "com.ivanmurzak.unity.mcp": "0.88.0",
+        "com.unity.ugui": "1.0.0"
+    },
+    "scopedRegistries": [
+        {
+            "name": "package.openupm.com",
+            "url": "https://package.openupm.com",
+            "scopes": [
+                "extensions.unity",
+                "com.ivanmurzak"
+            ]
+        }
+    ]
+}

@@ -38,13 +38,13 @@ $ErrorActionPreference = "Stop"
 # Version file locations (relative to script root)
 $VersionFiles = @(
     @{
-        Path        = "Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE/package.json"
+        Path        = "Unity-Package/Packages/com.usm.aitheme/package.json"
         Pattern     = '"version":\s*"[\d\.]+"'
         Replace     = '"version": "{VERSION}"'
         Description = "Unity package version"
     },
     @{
-        Path        = "Installer/Assets/YOUR_PACKAGE_NAME_INSTALLER/Installer.cs"
+        Path        = "Installer/Assets/UsmAITheme Installer/Installer.cs"
         Pattern     = 'public const string Version = "[\d\.]+";'
         Replace     = 'public const string Version = "{VERSION}";'
         Description = "Installer C# version constant"
@@ -70,7 +70,7 @@ function Test-SemanticVersion {
 
 function Get-CurrentVersion {
     # Extract current version from package.json
-    $packageJsonPath = "Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE/package.json"
+    $packageJsonPath = "Unity-Package/Packages/com.usm.aitheme/package.json"
     if (-not (Test-Path $packageJsonPath)) {
         throw "Could not find package.json at: $packageJsonPath"
     }
@@ -123,7 +123,7 @@ function Update-VersionFiles {
             # Show the actual changes
             foreach ($match in $regexMatches) {
                 $newValue = $match.Value -replace $file.Pattern, $replacement
-                Write-ColorText "   $($match.Value) ‚Üí $newValue" "Gray"
+                Write-ColorText "   $($match.Value) ‚Ü?$newValue" "Gray"
             }
         }
         else {
@@ -133,7 +133,7 @@ function Update-VersionFiles {
     }
 
     if ($changes.Count -eq 0) {
-        Write-ColorText "‚ùå No version references found to update!" "Red"
+        Write-ColorText "‚ù?No version references found to update!" "Red"
         Pop-Location
         exit 1
     }
@@ -161,7 +161,7 @@ try {
 
     # Validate semantic version format
     if (-not (Test-SemanticVersion $NewVersion)) {
-        Write-ColorText "‚ùå Invalid semantic version format: $NewVersion" "Red"
+        Write-ColorText "‚ù?Invalid semantic version format: $NewVersion" "Red"
         Write-ColorText "Expected format: major.minor.patch (e.g., '1.2.3')" "Yellow"
         Pop-Location
         exit 1
@@ -184,7 +184,7 @@ try {
     $changes = Update-VersionFiles -OldVersion $currentVersion -NewVersion $NewVersion -PreviewOnly $WhatIf
 
     if ($WhatIf) {
-        Write-ColorText "`n‚úÖ Preview completed. Use without -WhatIf to apply changes." "Green"
+        Write-ColorText "`n‚ú?Preview completed. Use without -WhatIf to apply changes." "Green"
         Pop-Location
         exit 0
     }
@@ -193,14 +193,14 @@ try {
         Write-ColorText "`nüéâ Version bump completed successfully!" "Green"
         Write-ColorText "   Updated $($changes.Count) files" "White"
         Write-ColorText "   Total replacements: $(($changes | Measure-Object -Property Matches -Sum).Sum)" "White"
-        Write-ColorText "   Version: $currentVersion ‚Üí $NewVersion" "White"
+        Write-ColorText "   Version: $currentVersion ‚Ü?$NewVersion" "White"
         Write-ColorText "`nüí° Remember to commit these changes to git" "Cyan"
     }
 
     Pop-Location
 }
 catch {
-    Write-ColorText "`n‚ùå Script failed: $($_.Exception.Message)" "Red"
+    Write-ColorText "`n‚ù?Script failed: $($_.Exception.Message)" "Red"
     Pop-Location
     exit 1
 }

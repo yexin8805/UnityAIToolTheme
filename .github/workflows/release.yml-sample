@@ -9,7 +9,7 @@ on:
 # Serialises release runs per ref so two releases can never publish concurrently.
 # `cancel-in-progress` is deliberately UNSET: an in-flight release must finish
 # (it may already have created the tag/Release). `queue: max` raises the pending
-# queue from the default 1 to 100 â€” without it, a queued release is silently
+# queue from the default 1 to 100 â€?without it, a queued release is silently
 # cancelled and replaced by the next push, which is how a version bump can be
 # published while an earlier one never runs.
 # NOTE: `queue: max` and `cancel-in-progress: true` together are a validation error.
@@ -39,7 +39,7 @@ jobs:
         id: get_version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
         with:
-          path: Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE
+          path: Unity-Package/Packages/com.usm.aitheme
 
       - name: Find previous version tag
         id: prev_tag
@@ -93,7 +93,7 @@ jobs:
             echo "---" >> release.md
             echo "" >> release.md
 
-            echo "## Commit Summary (Newest â†’ Oldest)" >> release.md
+            echo "## Commit Summary (Newest â†?Oldest)" >> release.md
             for sha in $(git log --pretty=format:'%H' $prev_tag..HEAD); do
               username=$(gh api repos/${GITHUB_REPOSITORY}/commits/$sha --jq '.author.login // .commit.author.name' 2>/dev/null || true)
               if [ -z "$username" ]; then
@@ -101,7 +101,7 @@ jobs:
               fi
               message=$(git log -1 --pretty=format:'%s' $sha)
               short_sha=$(git log -1 --pretty=format:'%h' $sha)
-              echo "- [\`$short_sha\`]($repo_url/commit/$sha) â€” $message by @$username" >> release.md
+              echo "- [\`$short_sha\`]($repo_url/commit/$sha) â€?$message by @$username" >> release.md
             done
           fi
 
@@ -176,23 +176,23 @@ jobs:
           projectPath: ./Installer
           unityVersion: ${{ env.INSTALLER_UNITY_VERSION }}
           customImage: "unityci/editor:ubuntu-${{ env.INSTALLER_UNITY_VERSION }}-base-3"
-          buildName: YOUR_PACKAGE_NAME_INSTALLER_FILE
+          buildName: UsmAITheme-Installer
           buildsPath: build
-          buildMethod: YOUR_PACKAGE_ID.Installer.PackageExporter.ExportPackage
+          buildMethod: com.usm.AITheme.Installer.PackageExporter.ExportPackage
           customParameters: -CI true -GITHUB_ACTIONS true
 
       - name: Upload Unity Package as artifact
         uses: actions/upload-artifact@v6
         with:
           name: unity-installer-package
-          path: ./Installer/build/YOUR_PACKAGE_NAME_INSTALLER_FILE.unitypackage
+          path: ./Installer/build/UsmAITheme-Installer.unitypackage
 
   # Builds the signed UPM package (.tgz with package/.attestation.p7m) in parallel
   # with tests/builds and uploads it as a `signed-upm-package` artifact for the
   # atomic release publish in release-unity-plugin.
   #
   # HARD-GATE: this job is NOT continue-on-error. Missing UPM signing secrets fail
-  # fast and the release pipeline halts â€” no GitHub Release is created without a
+  # fast and the release pipeline halts â€?no GitHub Release is created without a
   # signed UPM tarball (see docs/openupm-signing.md for the blocking-semantics
   # rationale).
   #
@@ -210,7 +210,7 @@ jobs:
       UPM_SERVICE_ACCOUNT_KEY_ID: ${{ secrets.UPM_SERVICE_ACCOUNT_KEY_ID }}
       UPM_SERVICE_ACCOUNT_KEY_SECRET: ${{ secrets.UPM_SERVICE_ACCOUNT_KEY_SECRET }}
       UPM_ORG_ID: ${{ secrets.UPM_ORG_ID }}
-      PACKAGE_DIR: Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE
+      PACKAGE_DIR: Unity-Package/Packages/com.usm.aitheme
       DIST_DIR: /tmp/signed-upm-dist
     steps:
       - name: Verify signing secrets are configured
@@ -220,7 +220,7 @@ jobs:
           [ -z "$UPM_SERVICE_ACCOUNT_KEY_SECRET" ] && missing+=("UPM_SERVICE_ACCOUNT_KEY_SECRET")
           [ -z "$UPM_ORG_ID" ]                     && missing+=("UPM_ORG_ID")
           if [ "${#missing[@]}" -ne 0 ]; then
-            printf '::error::UPM signing secrets are not configured (%s). The release pipeline is hard-gated on signing â€” see docs/openupm-signing.md for setup.\n' "${missing[*]}"
+            printf '::error::UPM signing secrets are not configured (%s). The release pipeline is hard-gated on signing â€?see docs/openupm-signing.md for setup.\n' "${missing[*]}"
             exit 1
           fi
 
@@ -260,13 +260,13 @@ jobs:
 
           archive="${archives[0]}"
           archive_basename="$(basename "$archive")"
-          # OpenUPM consumes the asset via the `githubReleaseAssetName: 'YOUR_PACKAGE_ID-'`
+          # OpenUPM consumes the asset via the `githubReleaseAssetName: 'com.usm.AITheme-'`
           # prefix documented in docs/openupm-signing.md. Enforce the contract here so a future
           # `upm pack` naming change fails CI loudly instead of silently breaking OpenUPM pickup.
-          # NOTE: replace `YOUR_PACKAGE_ID` below with your real package id (e.g. com.company.package)
+          # NOTE: replace `com.usm.AITheme` below with your real package id (e.g. com.company.package)
           # when you adopt this sample as release.yml.
-          if [[ "$archive_basename" != YOUR_PACKAGE_ID-* ]]; then
-            printf 'Signed archive basename %q does not begin with the OpenUPM-expected prefix YOUR_PACKAGE_ID- (see docs/openupm-signing.md)\n' "$archive_basename" >&2
+          if [[ "$archive_basename" != com.usm.AITheme-* ]]; then
+            printf 'Signed archive basename %q does not begin with the OpenUPM-expected prefix com.usm.AITheme- (see docs/openupm-signing.md)\n' "$archive_basename" >&2
             exit 1
           fi
 
@@ -375,11 +375,11 @@ jobs:
 
   # -------------------
 
-  # Atomic publish point â€” gated on EVERY prerequisite (tests, installer build,
+  # Atomic publish point â€?gated on EVERY prerequisite (tests, installer build,
   # signed UPM package, release notes). Downloads all asset artifacts and creates
   # the GitHub Release + tag with the full asset set in a SINGLE
   # softprops/action-gh-release@v2 call so a failed upload cannot strand the
-  # release with incomplete assets. Signing failure â†’ no release (hard gate).
+  # release with incomplete assets. Signing failure â†?no release (hard gate).
   release-unity-plugin:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -440,8 +440,8 @@ jobs:
           prerelease: false
           fail_on_unmatched_files: true
           files: |
-            ./assets/YOUR_PACKAGE_NAME_INSTALLER_FILE.unitypackage
-            ./assets/YOUR_PACKAGE_ID-*.tgz
+            ./assets/UsmAITheme-Installer.unitypackage
+            ./assets/com.usm.AITheme-*.tgz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

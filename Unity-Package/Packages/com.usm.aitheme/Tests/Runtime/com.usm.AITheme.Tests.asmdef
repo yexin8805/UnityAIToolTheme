@@ -1,0 +1,31 @@
+{
+    "name": "com.usm.AITheme.Tests",
+    "references": [
+        "com.IvanMurzak.Unity.MCP.Runtime",
+        "com.IvanMurzak.Unity.MCP.Tests",
+        "com.IvanMurzak.Unity.MCP.TestFiles",
+        "com.usm.AITheme.Runtime",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "System.Text.Json.dll",
+        "Microsoft.Extensions.Logging.Abstractions.dll",
+        "Microsoft.AspNetCore.SignalR.Client.dll",
+        "Microsoft.AspNetCore.SignalR.Client.Core.dll",
+        "ReflectorNet.dll",
+        "McpPlugin.dll",
+        "McpPlugin.Common.dll",
+        "R3.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

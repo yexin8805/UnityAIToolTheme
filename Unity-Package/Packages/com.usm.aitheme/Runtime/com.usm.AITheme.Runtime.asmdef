@@ -1,0 +1,19 @@
+{
+    "name": "com.usm.AITheme.Runtime",
+    "rootNamespace": "com.usm.AITheme.Runtime",
+    "references": [
+        "com.IvanMurzak.Unity.MCP.Runtime",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_MCP_READY"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

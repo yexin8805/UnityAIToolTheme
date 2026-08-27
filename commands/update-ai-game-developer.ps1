@@ -34,7 +34,7 @@ $GitHubRepo = "IvanMurzak/Unity-MCP"
 # Files to update
 # unity-extensions-maintain FUP-1: keep packages-lock.json in lockstep with the UPM pin
 $TargetFiles = @(
-    "Unity-Package/Packages/YOUR_PACKAGE_ID_LOWERCASE/package.json",
+    "Unity-Package/Packages/com.usm.aitheme/package.json",
     "Unity-Tests/2022.3.62f3/Packages/packages-lock.json",
     "Unity-Tests/2023.2.22f1/Packages/packages-lock.json",
     "Unity-Tests/6000.3.1f1/Packages/packages-lock.json"
@@ -166,7 +166,7 @@ try {
     Write-ColorText "üìã Latest version: $latestVersion" "White"
 
     if ($currentVersion -eq $latestVersion) {
-        Write-ColorText "`n‚úÖ Already up to date!" "Green"
+        Write-ColorText "`n‚ú?Already up to date!" "Green"
         Pop-Location
         exit 0
     }
@@ -179,21 +179,21 @@ try {
         $result = Update-PackageVersion -FilePath $file -PackageName $PackageName -NewVersion $latestVersion -PreviewOnly $WhatIf
         if ($result) {
             $updatedFiles += $result
-            Write-ColorText "   ‚úì Updated: $file" "Green"
+            Write-ColorText "   ‚ú?Updated: $file" "Green"
         }
     }
 
     if ($WhatIf) {
         Write-ColorText "`nüìã Preview Summary:" "Cyan"
         Write-ColorText "   Files to update: $($updatedFiles.Count)" "White"
-        Write-ColorText "   Version change: $currentVersion ‚Üí $latestVersion" "White"
-        Write-ColorText "`n‚úÖ Preview completed. Run without -WhatIf to apply changes." "Green"
+        Write-ColorText "   Version change: $currentVersion ‚Ü?$latestVersion" "White"
+        Write-ColorText "`n‚ú?Preview completed. Run without -WhatIf to apply changes." "Green"
     }
     else {
         if ($updatedFiles.Count -gt 0) {
             Write-ColorText "`nüéâ Update completed successfully!" "Green"
             Write-ColorText "   Updated $($updatedFiles.Count) file(s)" "White"
-            Write-ColorText "   Version: $currentVersion ‚Üí $latestVersion" "White"
+            Write-ColorText "   Version: $currentVersion ‚Ü?$latestVersion" "White"
             Write-ColorText "`nüí° Remember to commit these changes to git" "Cyan"
         }
         else {
@@ -204,7 +204,7 @@ try {
     Pop-Location
 }
 catch {
-    Write-ColorText "`n‚ùå Script failed: $($_.Exception.Message)" "Red"
+    Write-ColorText "`n‚ù?Script failed: $($_.Exception.Message)" "Red"
     Pop-Location
     exit 1
 }

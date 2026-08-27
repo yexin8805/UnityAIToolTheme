@@ -1,0 +1,22 @@
+{
+    "name": "com.usm.AITheme.Installer.Tests",
+    "rootNamespace": "com.usm.AITheme.Installer.Tests",
+    "references": [
+        "com.usm.AITheme.Installer"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

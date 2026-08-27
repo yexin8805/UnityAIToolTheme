@@ -26,6 +26,7 @@
     }
   ],
   "testables": [
-    "com.ivanmurzak.unity.mcp"
+    "com.ivanmurzak.unity.mcp",
+    "com.usm.aitheme"
   ]
 }
