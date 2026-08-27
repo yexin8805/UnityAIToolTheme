@@ -1,2 +1,8 @@
 # Claude
 .claude
+# Build/test artifacts and local logs
+logs/
+TestResults-*.xml
+__pycache__/
+*.pyc
+commands/__pycache__/
